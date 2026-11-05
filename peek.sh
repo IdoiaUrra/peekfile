@@ -1,9 +1,12 @@
-if [[ -z $2 ]]; then
-	head -n 3 $1
-	echo ...
-	tail -n 3 $1
+NUMLINES=$(cat $1 | wc -l)
+
+if [[ $NUMLINES -lt $((2*$2)) ]]; then
+    cat $1
 else 
-	head -n $2 $1 
-	echo ...
-	tail -n $2 $1
-fi
+    echo Warning message: "$1" contains more than "$((2*$2))" lines.
+    head -n $2 $1 
+    echo ...
+    tail -n $2 $1
+fi 
+
+
